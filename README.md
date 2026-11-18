@@ -1,75 +1,176 @@
 # E-Commerce-Customer-Intelligence-Using-SQL
-# E-Commerce Customer Intelligence Using SQL
 
-## Overview
+## Project Overview
 
-An end-to-end SQL analytics project using the Brazilian E-Commerce Public Dataset by Olist. The project investigates sales performance, customer purchasing behavior, retention, delivery performance, and customer satisfaction using relational database analysis.
+An end to end e commerce analytics project using the Brazilian E Commerce Public Dataset by Olist. This project uses PostgreSQL, SQL, Tableau, and Python to investigate sales performance, customer purchasing behavior, repeat purchases, delivery performance, and customer satisfaction.
 
-The project also builds customer-level analytical features that can be used in downstream machine learning experiments.
+The project also includes customer feature engineering and Python based data validation to prepare a structured dataset for future machine learning experiments.
 
 ## Business Objectives
 
-- Analyze monthly sales and revenue trends.
-- Identify repeat-purchase behavior and customer retention patterns.
-- Segment customers using Recency, Frequency, and Monetary value (RFM).
-- Evaluate delivery performance and its relationship with customer satisfaction.
-- Build validated customer-level features for machine learning.
-- Improve SQL query performance and document optimization results.
+1. Analyze sales performance, revenue trends, and product category performance.
+2. Understand customer purchasing behavior and repeat purchase patterns.
+3. Evaluate customer retention and purchasing activity.
+4. Investigate delivery performance and customer satisfaction.
+5. Develop customer level analytical features using SQL.
+6. Validate analytical results and financial metrics using Python and Pandas.
 
 ## Dataset
 
-Source: [Brazilian E-Commerce Public Dataset by Olist](https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce)
+**Source:** [Brazilian E Commerce Public Dataset by Olist](https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce)
 
-The dataset contains anonymized historical e-commerce records from 2016–2018, including orders, customers, products, sellers, payments, and reviews.
+The dataset contains anonymized historical e commerce transactions from 2016 to 2018. It includes information about customers, orders, products, sellers, payments, and reviews.
+
+The original dataset is not included in this repository. Refer to the Kaggle source for dataset access and licensing information.
 
 ## Technology Stack
 
-- PostgreSQL
-- Tableau
-- Git and GitHub
-- Python and Jupyter Notebook for downstream feature validation
-
-## SQL Techniques
-
-- Relational database design and multi-table joins
-- Common Table Expressions (CTEs) and subqueries
-- Aggregations and conditional logic
-- Window functions, ranking, and cohort analysis
-- Date calculations and customer segmentation
-- Data quality validation
-- Indexing and execution-plan analysis
-- Customer-level feature engineering
+| Technology | Purpose |
+|---|---|
+| PostgreSQL | Relational database and analytical queries |
+| SQL | Data cleaning, analysis, aggregations, and feature engineering |
+| Tableau | Interactive dashboards and business reporting |
+| Python | Data validation and analysis |
+| Pandas | Feature validation and reconciliation |
+| Jupyter Notebook | Documented Python workflow |
+| Git and GitHub | Version control and project documentation |
 
 ## Project Workflow
 
-1. Inspect the dataset and define table relationships.
-2. Create staging and analytical tables.
-3. Validate data types, missing values, duplicate records, and join keys.
-4. Perform revenue, retention, RFM, delivery, and satisfaction analyses.
-5. Build a customer-level feature dataset.
-6. Validate analytical results and export selected features for Python.
-7. Evaluate query performance and document optimization results.
-8. Summarize findings, limitations, and potential business actions.
+### 1. Database and Data Preparation
+
+Organized the Olist dataset into relational tables and developed analytical views using PostgreSQL.
+
+Performed data quality checks, examined relationships between tables, and validated analytical calculations.
+
+### 2. SQL Business Analysis
+
+Developed SQL analyses covering:
+
+1. Revenue and sales performance.
+2. Customer purchasing activity and repeat purchases.
+3. Customer retention metrics.
+4. Delivery performance and customer satisfaction.
+5. Customer level feature engineering.
+
+### 3. Tableau Dashboards
+
+Developed three dashboards to explore different areas of e commerce performance.
+
+**Dashboard 1: Sales Performance**
+
+Examines revenue trends, orders, and product category performance.
+
+**Dashboard 2: Customer Intelligence**
+
+Explores customer purchasing activity, repeat purchases, and customer behavior.
+
+**Dashboard 3: Delivery and Customer Experience**
+
+Examines delivery performance, delivery outcomes, and customer satisfaction.
+
+### 4. Customer Feature Engineering
+
+Created the PostgreSQL analytical view:
+
+`analytics.vw_customer_ml_features`
+
+The view contains one row per unique customer and 20 analytical columns covering:
+
+1. Customer identification and geography.
+2. Order activity and purchasing history.
+3. Delivered product revenue and freight.
+4. Purchase recency.
+5. Delivery duration and review scores.
+6. Repeat customer classification.
+
+Exported the resulting dataset to:
+
+`outputs/customer_ml_features.csv`
+
+### 5. Python Data Validation
+
+Used Python and Pandas to validate the exported customer feature dataset against PostgreSQL results.
+
+Validation included duplicate checks, missing value investigation, date consistency, business rules, and financial reconciliation.
+
+**Validation results**
+
+| Metric | Result |
+|---|---:|
+| Unique customers | 96,096 |
+| Total orders | 99,441 |
+| Delivered orders | 96,478 |
+| Delivered product revenue | R$13,221,498.11 |
+| Delivered freight | R$2,198,275.64 |
+| Repeat customers | 2,997 |
+| Validation checks passed | 14 of 14 |
+
+All 14 final validation checks passed. PostgreSQL and Python financial and order totals reconciled.
 
 ## Repository Structure
 
-- `sql/`: Database setup, analysis, data quality, feature engineering, and optimization scripts.
-- `docs/`: Schema documentation, data dictionary, business findings, and performance measurements.
-- `outputs/`: Sample query results and screenshots.
-- `python/`: Downstream feature validation and optional machine learning experiments.
+```text
+E-Commerce-Customer-Intelligence-Using-SQL/
+│
+├── sql/
+│   ├── 04_revenue_analysis.sql
+│   ├── 05_customer_retention.sql
+│   ├── 07_delivery_satisfaction.sql
+│   └── 08_ml_feature_engineering.sql
+│
+├── docs/
+│   └── feature_dictionary.md
+│
+├── outputs/
+│   └── customer_ml_features.csv
+│
+├── python/
+│   └── feature_validation.ipynb
+│
+├── dashboard/
+│   └── Tableau dashboard files and screenshots
+│
+└── README.md
+```
 
-## Results
+The structure above highlights the confirmed analytical deliverables. Add other SQL scripts and dashboard files as they are finalized.
 
-Results, charts, validation checks, and performance comparisons will be documented here after the analysis has been executed and verified.
+## Data Limitations
 
-## Limitations
+1. The dataset contains historical transactions from 2016 to 2018, not real time customer activity.
+2. Average delivered order value is missing for 2,738 customers because they have no delivered orders.
+3. Average review score is missing for 716 customers because they have no reviewed orders.
+4. Average delivery duration is missing for 2,746 customers. Eight customers with delivered orders have missing delivery timestamps.
+5. Customer recency uses a fixed reference date of October 18, 2018.
 
-The dataset is historical rather than real-time. Customer segments are analytical groupings, not proof of future behavior. Any predictive modeling requires an explicitly defined target, appropriate observation windows, and safeguards against data leakage.
+Missing values were retained as null rather than replaced with zero or estimated values.
 
-## Attribution
+## Future Improvements
 
-Dataset: Olist, Brazilian E-Commerce Public Dataset, available on Kaggle. Refer to the source page for license terms.
+1. Complete and document RFM customer segmentation.
+2. Evaluate SQL query performance using execution plans and measured comparisons.
+3. Define a prediction target and observation window for machine learning.
+4. Address potential data leakage before predictive modeling.
+5. Expand business findings with evidence from the completed dashboards.
 
 ## Reproducibility
 
-Follow the setup instructions and execute the SQL scripts in order. Configure database names and file paths for your local SQL Server environment before running the scripts.
+To reproduce the project:
+
+1. Download the Brazilian E Commerce Public Dataset from the Kaggle source.
+2. Install PostgreSQL and create the project database.
+3. Import the source CSV files into the appropriate database tables.
+4. Create the required schemas and analytical views.
+5. Execute the SQL analysis and feature engineering scripts after their dependencies are available.
+6. Export `analytics.vw_customer_ml_features` to `outputs/customer_ml_features.csv`.
+7. Open `python/feature_validation.ipynb` and run the notebook to reproduce the Python validation checks.
+8. Open the Tableau workbook files to explore the dashboards, when included.
+
+Refer to the SQL scripts and documentation for the specific table definitions and analytical logic.
+
+## Attribution
+
+Dataset: Olist, Brazilian E Commerce Public Dataset.
+
+Available through [Kaggle](https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce). Please refer to the dataset source for licensing and usage terms.
