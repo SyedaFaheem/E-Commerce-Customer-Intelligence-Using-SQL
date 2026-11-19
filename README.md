@@ -54,6 +54,8 @@ Developed SQL analyses covering:
 5. Customer level feature engineering.
 
 ### 3. Tableau Dashboards
+[View My Tableau Public Portfolio](https://public.tableau.com/app/profile/faheemunnisa.syeda7/vizzes)
+
 
 Developed three dashboards to explore different areas of e commerce performance.
 
